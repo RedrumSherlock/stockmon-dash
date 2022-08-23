@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'model/converted_simple_object.dart';
+import 'model/market.dart';
+import 'model/trader.dart';
 
 class BasicsPage extends StatelessWidget {
   const BasicsPage({super.key});
@@ -65,104 +66,14 @@ class ConvertedSimplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final simpleObjects = [
-      '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": [],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [],
-      "aListOfDoubles": [1.0, 2.0, 3.0]
-    }''',
-        '''
-    {
-      "aString": "Blah, blah, blah.",
-      "anInt": 1,
-      "aDouble": 1.0,
-      "aListOfStrings": ["one", "two", "three"],
-      "aListOfInts": [1, 2, 3],
-      "aListOfDoubles": []
-    }''',
-    ];
-    var objects = simpleObjects.map(
-          (jsonString) {
-        final parsedJson = json.decode(jsonString) as Map<String, dynamic>;
-        return ConvertedSimpleObject.fromJson(parsedJson);
-      },
-    ).toList();
+   final response = "";
+   List<Trader> traderList = json.decode(response) as List<Trader>;
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       children: [
         const SizedBox(height: 16.0),
-        SimpleObjectViewList(simpleObjects: objects),
+        SimpleObjectViewList(simpleObjects: traderList),
         const SizedBox(height: 16.0),
       ],
     );
