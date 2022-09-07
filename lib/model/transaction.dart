@@ -8,18 +8,18 @@ class Transaction {
     this.dateTime,
   });
 
-  double? amount;
+  int? amount;
   String? symbol;
   bool? isBuy;
-  double? price;
+  num? price;
   DateTime? dateTime;
 
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
-        amount: json['amount'] as double,
+        amount: json['amount'] as int,
         symbol: json['symbol'] as String,
-        isBuy: json['action'] == 'buy' as bool,
-        price: json['price'] as double,
-        dateTime: DateTime.parse(json['dateTime'] as String));
+        isBuy: (json['action'] as String).toLowerCase() == 'buy',
+        price: json['price'] as num,
+        dateTime: DateTime.parse(json['datetime'] as String));
   }
 }

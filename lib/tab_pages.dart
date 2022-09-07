@@ -66,8 +66,10 @@ class ConvertedSimplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-   final response = "";
-   List<Trader> traderList = json.decode(response) as List<Trader>;
+   final response = "[{\"cash\":21.0499999999995,\"end_date\":\"2100-12-31\",\"init_funds\":11500,\"last_5_transactions\":[{\"action\":\"buy\",\"amount\":33,\"datetime\":\"2022-09-02 09:45:23\",\"price\":30.37,\"symbol\":\"PDF.TO\"},{\"action\":\"buy\",\"amount\":32,\"datetime\":\"2022-09-02 09:45:25\",\"price\":31.22,\"symbol\":\"ESGA.TO\"},{\"action\":\"buy\",\"amount\":78,\"datetime\":\"2022-09-02 10:00:24\",\"price\":14.41,\"symbol\":\"TQGM.TO\"},{\"action\":\"sell\",\"amount\":7,\"datetime\":\"2022-09-02 12:45:16\",\"price\":28.16,\"symbol\":\"PBI.TO\"},{\"action\":\"buy\",\"amount\":12,\"datetime\":\"2022-09-02 13:00:23\",\"price\":28.2,\"symbol\":\"PBI.TO\"}],\"latest_price\":{\"CINT.TO\":17.6,\"CLG.TO\":16.67,\"EDGF.TO\":8.96,\"ESGA.TO\":30.82,\"FIG.TO\":9.37,\"FLCP.TO\":17.42,\"FLSD.TO\":18.51,\"HAB.TO\":9.58,\"HXF.TO\":56.38,\"PBI.TO\":27.72,\"PDF.TO\":29.86,\"TQGM.TO\":14.05,\"XSC.TO\":17.49,\"ZBBB.TO\":26.83},\"position\":{\"CINT.TO\":0,\"CLG.TO\":67,\"EDGF.TO\":0,\"ESGA.TO\":32,\"FIG.TO\":120,\"FLCP.TO\":64,\"FLSD.TO\":61,\"HAB.TO\":117,\"HXF.TO\":0,\"PBI.TO\":12,\"PDF.TO\":33,\"TQGM.TO\":78,\"XSC.TO\":64,\"ZBBB.TO\":42},\"start_date\":\"2020-06-30\",\"total_value\":11273.569999999998,\"trader_name\":\"Default Trader\"}]";
+   List<dynamic> dynamicList = json.decode(response);
+   Trader.fromJson(json.decode(response)[0]);
+   List<Trader> traderList = dynamicList.map((dynamic o) => Trader.fromJson(o as Map<String, dynamic>)).toList();
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -83,7 +85,7 @@ class ConvertedSimplePage extends StatelessWidget {
 class SimpleObjectViewList extends StatelessWidget {
   const SimpleObjectViewList({required this.simpleObjects, super.key});
 
-  final List<dynamic> simpleObjects;
+  final List<Trader> simpleObjects;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +115,7 @@ class SimpleObjectViewList extends StatelessWidget {
 class SimpleObjectView extends StatelessWidget {
   const SimpleObjectView({required this.simpleObject, super.key});
 
-  final dynamic simpleObject;
+  final Trader simpleObject;
 
   @override
   Widget build(BuildContext context) {
@@ -132,12 +134,12 @@ class SimpleObjectView extends StatelessWidget {
         TableRow(
           children: [
             Text(
-              'aString:',
+              'name:',
               style: boldStyle,
             ),
             Text(
-              simpleObject.aString != null
-                  ? '"${simpleObject.aString}"'
+              simpleObject.name != null
+                  ? '"${simpleObject.name}"'
                   : 'NULL',
               style: localTheme.bodyText2,
             ),
@@ -145,53 +147,20 @@ class SimpleObjectView extends StatelessWidget {
         ),
         TableRow(
           children: [
-            Text('anInt:', style: boldStyle),
+            Text('cash:', style: boldStyle),
             Text(
-              simpleObject.anInt?.toString() ?? 'NULL',
+              simpleObject.cash.toString(),
               style: localTheme.bodyText2,
             ),
           ],
         ),
         TableRow(children: [
-          Text('aDouble:', style: boldStyle),
+          Text('total value:', style: boldStyle),
           Text(
-            simpleObject.aDouble?.toString() ?? 'NULL',
+            simpleObject.totalValue.toString(),
             style: localTheme.bodyText2,
           ),
         ]),
-        TableRow(
-          children: [
-            Text('aListOfStrings:', style: boldStyle),
-            Text(
-              prettyPrintList(
-                simpleObject.aListOfStrings as Iterable<dynamic>?,
-              ),
-              style: localTheme.bodyText2,
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Text('aListOfInts:', style: boldStyle),
-            Text(
-              prettyPrintList(simpleObject.aListOfInts as Iterable<dynamic>?),
-              style: localTheme.bodyText2,
-            ),
-          ],
-        ),
-        TableRow(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text('aListOfDoubles:', style: boldStyle),
-            ),
-            Text(
-              prettyPrintList(
-                  simpleObject.aListOfDoubles as Iterable<dynamic>?),
-              style: localTheme.bodyText2,
-            ),
-          ],
-        ),
       ],
     );
   }

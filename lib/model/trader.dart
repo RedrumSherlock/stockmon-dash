@@ -14,28 +14,28 @@ class Trader {
     this.transactionList,
   );
 
-  double initFunds;
-  double cash;
-  double totalValue;
+  num initFunds;
+  num cash;
+  num totalValue;
   DateTime startDate;
   DateTime endDate;
   String name;
-  Map<String, double> latestPrice;
+  Map<String, num> latestPrice;
   Map<String, int> positions;
   List<Transaction> transactionList;
 
   factory Trader.fromJson(Map<String, dynamic> json) {
     return Trader(
-      json['init_funds'] as double,
-      json['cash'] as double,
-      json['total_value'] as double,
+      json['init_funds'] as num,
+      json['cash'] as num,
+      json['total_value'] as num,
       DateTime.parse(json['start_date'] as String),
       DateTime.parse(json['end_date'] as String),
       json['trader_name'] as String,
       json['latest_price'] != null
-          ? json['latest_price'] as Map<String, double>
+          ? (json['latest_price'] as Map<String, dynamic>).map((key, value) => MapEntry(key, value as num))
           : {},
-      json['position'] != null ? json['position'] as Map<String, int> : {},
+      json['position'] != null ? (json['position'] as Map<String, dynamic>).map((key, value) => MapEntry(key, value as int)) : {},
       json['last_5_transactions'] != null
           ? List<Transaction>.from(
               (json['last_5_transactions'] as Iterable<dynamic>).map<dynamic>(
